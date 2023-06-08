@@ -74,4 +74,14 @@ class AccountRepositoryTest {
         // Verify
         Assertions.assertEquals(3, size);
     }
+
+    @Test
+    void noRegisteredAccounts() {
+        // Setup
+        AccountRepository accountRepository = new AccountRepository();
+        //Kick
+        boolean isAccountsEmpty = accountRepository.noRegisteredAccounts();
+        // Verify
+        Assertions.assertTrue(isAccountsEmpty);
+    }
 }
