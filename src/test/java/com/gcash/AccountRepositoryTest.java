@@ -46,6 +46,18 @@ class AccountRepositoryTest {
     }
 
     @Test
+    void deleteAccount_AccountNotFound() {
+        // Setup
+        AccountRepository accountRepository = new AccountRepository();
+        accountRepository.createAccount("mark", 100.0);
+        String accountId = "random-id-non-existent";
+        // Kick and Verify
+        Assertions.assertThrows(IllegalArgumentException    .class,
+                () -> accountRepository.deleteAccount(accountId)
+        );
+    }
+
+    @Test
     void updateAccount() {
         // Setup
         AccountRepository accountRepository = new AccountRepository();
