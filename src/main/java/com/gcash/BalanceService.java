@@ -9,10 +9,11 @@ public class BalanceService {
 
     public Double getBalance(String id) {
         Account account = accountRepository.getAccount(id);
-        if (account != null) {
+        if (account == null) {
+            throw new NullPointerException();
+        } else {
             return account.balance();
         }
-        return null;
     }
 
     public void debit(String id, Double amount) {
