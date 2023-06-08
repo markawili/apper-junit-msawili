@@ -18,6 +18,18 @@ class BalanceServiceTest {
     }
 
     @Test
+    void getBalance_AccountNotFound() {
+        //Setup
+        AccountRepository accountRepository = new AccountRepository();
+        BalanceService balanceService = new BalanceService(accountRepository);
+        String accountId = "random-id-non-existent";
+        //Kick and Verify
+        Assertions.assertThrows(NullPointerException.class,
+            () -> balanceService.getBalance(accountId)
+        );
+    }
+
+    @Test
     void debit() {
         //Setup
         AccountRepository accountRepository = new AccountRepository();
