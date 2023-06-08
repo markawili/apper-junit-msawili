@@ -27,11 +27,16 @@ public class AccountRepository {
     }
 
     public void deleteAccount(String id) {
+        boolean accountDeleted = false;
         for (Account account: accounts) {
             if (account.id().equals(id)) {
                 accounts.remove(account);
-                return;
+                accountDeleted = true;
+                break;
             }
+        }
+        if (!accountDeleted) {
+            throw new IllegalArgumentException("Account not found: " + id);
         }
     }
 
