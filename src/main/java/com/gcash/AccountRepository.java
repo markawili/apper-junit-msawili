@@ -1,7 +1,5 @@
 package com.gcash;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -32,6 +30,16 @@ public class AccountRepository {
         for (Account account: accounts) {
             if (account.id().equals(id)) {
                 accounts.remove(account);
+                return;
+            }
+        }
+    }
+
+    public void updateAccount(Account updatedAccount) {
+        for (int i = 0; i < accounts.size(); i++) {
+            Account account = accounts.get(i);
+            if (account.id().equals(updatedAccount.id())) {
+                accounts.set(i, updatedAccount);
                 return;
             }
         }
