@@ -1,1 +1,10 @@
-
+1. Unit testing - testing per unit/component
+2. Integration testing - used when testing multiple/integrated components
+3. System testing - checking if system complies with the requirements
+4. Acceptance testing - testing done for users/stakeholders
+5. False
+6. Jupiter
+7. Assertions.assertEquals() = Asserts that the two parameters are equal
+8. Assertion.assertTrue() = Asserts that a condition is true
+9. Assertion.assertNull() = Asserts that an object is null
+10. Assertion.assertArrayEquals() = Asserts that two arrays are equal to each other.
