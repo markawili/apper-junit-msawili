@@ -3,7 +3,6 @@ package com.gcash;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class AccountRepositoryTest {
 
@@ -27,7 +26,7 @@ class AccountRepositoryTest {
         String accountId = accountRepository.createAccount("andrew", 100.0);
         // Verify
         Assertions.assertEquals("andrew", accountRepository.getAccount(accountId).name());
-        Assertions.assertEquals(100.0, accountRepository.getAccount(accountId).amount());
+        Assertions.assertEquals(100.0, accountRepository.getAccount(accountId).balance());
         Assertions.assertNull(accountRepository.getAccount("randomid"));
     }
 
@@ -36,8 +35,8 @@ class AccountRepositoryTest {
         // Setup
         AccountRepository accountRepository = new AccountRepository();
         String accountId = accountRepository.createAccount("mark", 100.0);
-        String accountId2 = accountRepository.createAccount("andrew", 100.0);
-        String accountId3 = accountRepository.createAccount("santos", 100.0);
+        accountRepository.createAccount("andrew", 100.0);
+        accountRepository.createAccount("santos", 100.0);
         int initialSize = accountRepository.getNumberOfAccounts();
         // Kick
         accountRepository.deleteAccount(accountId);
@@ -47,13 +46,30 @@ class AccountRepositoryTest {
     }
 
     @Test
+    void updateAccount() {
+        // Setup
+        AccountRepository accountRepository = new AccountRepository();
+        String accountId = accountRepository.createAccount("mark", 100.0);
+        Account oldAccount = accountRepository.getAccount(accountId);
+        // Kick
+        Account updatedAccount = new Account(oldAccount.id(), "Andrew", oldAccount.balance());
+        accountRepository.updateAccount(updatedAccount);
+        Account retrievedUpdatedAccount = accountRepository.getAccount(updatedAccount.id());
+        // Verify
+        Assertions.assertEquals(oldAccount.id(), retrievedUpdatedAccount.id());
+        Assertions.assertEquals(updatedAccount.id(), retrievedUpdatedAccount.id());
+        Assertions.assertEquals(updatedAccount.balance(), retrievedUpdatedAccount.balance());
+        Assertions.assertEquals(updatedAccount.name(), retrievedUpdatedAccount.name());
+    }
+
+    @Test
     void getNumberOfAccounts() {
         // Setup
         AccountRepository accountRepository = new AccountRepository();
         // Kick
-        String accountId = accountRepository.createAccount("mark", 100.0);
-        String accountId2 = accountRepository.createAccount("andrew", 100.0);
-        String accountId3 = accountRepository.createAccount("santos", 100.0);
+        accountRepository.createAccount("mark", 100.0);
+        accountRepository.createAccount("andrew", 100.0);
+        accountRepository.createAccount("santos", 100.0);
         int size = accountRepository.getNumberOfAccounts();
         // Verify
         Assertions.assertEquals(3, size);
