@@ -1,11 +1,17 @@
 package com.gcash;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 class AccountRepositoryTest {
-    private final AccountRepository accountRepository = new AccountRepository();
+    private AccountRepository accountRepository;
+
+    @BeforeEach
+    void setUp() {
+        accountRepository = new AccountRepository();
+    }
 
     @Test
     void successfulAccountCreation() {
@@ -20,6 +26,7 @@ class AccountRepositoryTest {
 
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     @Test
     void getAccount() {
         // Kick

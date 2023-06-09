@@ -1,11 +1,18 @@
 package com.gcash;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class BalanceServiceTest {
-    private final AccountRepository accountRepository = new AccountRepository();
-    private final BalanceService balanceService = new BalanceService(accountRepository);
+    private AccountRepository accountRepository;
+    private BalanceService balanceService;
+
+    @BeforeEach
+    void setUp() {
+        accountRepository = new AccountRepository();
+        balanceService = new BalanceService(accountRepository);
+    }
 
     @Test
     void getBalance() {
