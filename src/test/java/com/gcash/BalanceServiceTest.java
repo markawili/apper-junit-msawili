@@ -67,7 +67,9 @@ class BalanceServiceTest {
         Account senderAccount = accountRepository.getAccount(senderAccountId);
         Account recipientAccount = accountRepository.getAccount(recipientAccountId);
         //Verify
-        Assertions.assertEquals(senderAccount.balance(), 50.0);
-        Assertions.assertEquals(recipientAccount.balance(), 150.0);
+        Assertions.assertAll("Transfer",
+                () -> Assertions.assertEquals(senderAccount.balance(), 50.0),
+                () -> Assertions.assertEquals(recipientAccount.balance(), 150.0)
+        );
     }
 }

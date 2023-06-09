@@ -13,9 +13,12 @@ class AccountRepositoryTest {
         // Kick
         String accountId = accountRepository.createAccount("mark", 100.0);
         // Verify
-        Assertions.assertNotNull(accountId);
-        Assertions.assertEquals(1, accountRepository.getNumberOfAccounts());
-        Assertions.assertEquals("mark", accountRepository.getAccount(accountId).name());
+        Assertions.assertAll("Account creation",
+                () -> Assertions.assertNotNull(accountId),
+                () -> Assertions.assertEquals(1, accountRepository.getNumberOfAccounts()),
+                () -> Assertions.assertEquals("mark", accountRepository.getAccount(accountId).name())
+        );
+
     }
 
     @Test
@@ -25,9 +28,12 @@ class AccountRepositoryTest {
         // Kick
         String accountId = accountRepository.createAccount("andrew", 100.0);
         // Verify
-        Assertions.assertEquals("andrew", accountRepository.getAccount(accountId).name());
-        Assertions.assertEquals(100.0, accountRepository.getAccount(accountId).balance());
-        Assertions.assertNull(accountRepository.getAccount("randomid"));
+        Assertions.assertAll("Get Account",
+                () -> Assertions.assertEquals("andrew", accountRepository.getAccount(accountId).name()),
+                () -> Assertions.assertEquals(100.0, accountRepository.getAccount(accountId).balance()),
+                () -> Assertions.assertNull(accountRepository.getAccount("randomid"))
+        );
+
     }
 
     @Test
@@ -41,8 +47,11 @@ class AccountRepositoryTest {
         // Kick
         accountRepository.deleteAccount(accountId);
         // Verify
-        Assertions.assertNotEquals(accountRepository.getNumberOfAccounts(), initialSize);
-        Assertions.assertNull(accountRepository.getAccount(accountId));
+        Assertions.assertAll("Delete Account",
+                () -> Assertions.assertNotEquals(accountRepository.getNumberOfAccounts(), initialSize),
+                () -> Assertions.assertNull(accountRepository.getAccount(accountId))
+        );
+
     }
 
     @Test
@@ -68,10 +77,13 @@ class AccountRepositoryTest {
         accountRepository.updateAccount(updatedAccount);
         Account retrievedUpdatedAccount = accountRepository.getAccount(updatedAccount.id());
         // Verify
-        Assertions.assertEquals(oldAccount.id(), retrievedUpdatedAccount.id());
-        Assertions.assertEquals(updatedAccount.id(), retrievedUpdatedAccount.id());
-        Assertions.assertEquals(updatedAccount.balance(), retrievedUpdatedAccount.balance());
-        Assertions.assertEquals(updatedAccount.name(), retrievedUpdatedAccount.name());
+        Assertions.assertAll("Update Account",
+                () -> Assertions.assertEquals(oldAccount.id(), retrievedUpdatedAccount.id()),
+                () -> Assertions.assertEquals(updatedAccount.id(), retrievedUpdatedAccount.id()),
+                () -> Assertions.assertEquals(updatedAccount.balance(), retrievedUpdatedAccount.balance()),
+                () -> Assertions.assertEquals(updatedAccount.name(), retrievedUpdatedAccount.name())
+        );
+
     }
 
     @Test
