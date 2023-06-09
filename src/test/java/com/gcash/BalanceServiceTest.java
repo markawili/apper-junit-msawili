@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class BalanceServiceTest {
+    private final AccountRepository accountRepository = new AccountRepository();
+    private final BalanceService balanceService = new BalanceService(accountRepository);
 
     @Test
     void getBalance() {
         //Setup
-        AccountRepository accountRepository = new AccountRepository();
-        BalanceService balanceService = new BalanceService(accountRepository);
         String accountId = accountRepository.createAccount("Mark", 100.0);
         //Kick
         double balance = balanceService.getBalance(accountId);
@@ -20,8 +20,6 @@ class BalanceServiceTest {
     @Test
     void getBalance_AccountNotFound() {
         //Setup
-        AccountRepository accountRepository = new AccountRepository();
-        BalanceService balanceService = new BalanceService(accountRepository);
         String accountId = "random-id-non-existent";
         //Kick and Verify
         Assertions.assertThrows(NullPointerException.class,
@@ -32,8 +30,6 @@ class BalanceServiceTest {
     @Test
     void debit() {
         //Setup
-        AccountRepository accountRepository = new AccountRepository();
-        BalanceService balanceService = new BalanceService(accountRepository);
         String accountId = accountRepository.createAccount("Mark", 100.0);
         //Kick
         balanceService.debit(accountId, 50.0);
@@ -45,8 +41,6 @@ class BalanceServiceTest {
     @Test
     void credit() {
         //Setup
-        AccountRepository accountRepository = new AccountRepository();
-        BalanceService balanceService = new BalanceService(accountRepository);
         String accountId = accountRepository.createAccount("Mark", 100.0);
         //Kick
         balanceService.credit(accountId, 50.0);
@@ -58,8 +52,6 @@ class BalanceServiceTest {
     @Test
     void transfer() {
         //Setup
-        AccountRepository accountRepository = new AccountRepository();
-        BalanceService balanceService = new BalanceService(accountRepository);
         String senderAccountId = accountRepository.createAccount("Mark", 100.0);
         String recipientAccountId = accountRepository.createAccount("Andrew", 100.0);
         //Kick

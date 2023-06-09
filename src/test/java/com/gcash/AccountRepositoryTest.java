@@ -5,11 +5,10 @@ import org.junit.jupiter.api.Test;
 
 
 class AccountRepositoryTest {
+    private final AccountRepository accountRepository = new AccountRepository();
 
     @Test
     void successfulAccountCreation() {
-        // Setup
-        AccountRepository accountRepository = new AccountRepository();
         // Kick
         String accountId = accountRepository.createAccount("mark", 100.0);
         // Verify
@@ -23,8 +22,6 @@ class AccountRepositoryTest {
 
     @Test
     void getAccount() {
-        // Setup
-        AccountRepository accountRepository = new AccountRepository();
         // Kick
         String accountId = accountRepository.createAccount("andrew", 100.0);
         // Verify
@@ -39,7 +36,6 @@ class AccountRepositoryTest {
     @Test
     void deleteAccount() {
         // Setup
-        AccountRepository accountRepository = new AccountRepository();
         String accountId = accountRepository.createAccount("mark", 100.0);
         accountRepository.createAccount("andrew", 100.0);
         accountRepository.createAccount("santos", 100.0);
@@ -57,7 +53,6 @@ class AccountRepositoryTest {
     @Test
     void deleteAccount_AccountNotFound() {
         // Setup
-        AccountRepository accountRepository = new AccountRepository();
         accountRepository.createAccount("mark", 100.0);
         String accountId = "random-id-non-existent";
         // Kick and Verify
@@ -69,7 +64,6 @@ class AccountRepositoryTest {
     @Test
     void updateAccount() {
         // Setup
-        AccountRepository accountRepository = new AccountRepository();
         String accountId = accountRepository.createAccount("mark", 100.0);
         Account oldAccount = accountRepository.getAccount(accountId);
         // Kick
@@ -88,8 +82,6 @@ class AccountRepositoryTest {
 
     @Test
     void getNumberOfAccounts() {
-        // Setup
-        AccountRepository accountRepository = new AccountRepository();
         // Kick
         accountRepository.createAccount("mark", 100.0);
         accountRepository.createAccount("andrew", 100.0);
@@ -101,8 +93,6 @@ class AccountRepositoryTest {
 
     @Test
     void noRegisteredAccounts() {
-        // Setup
-        AccountRepository accountRepository = new AccountRepository();
         //Kick
         boolean isAccountsEmpty = accountRepository.noRegisteredAccounts();
         // Verify
