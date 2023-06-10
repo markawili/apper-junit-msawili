@@ -48,6 +48,8 @@ public class BalanceService {
 
                 accountRepository.updateAccount(updatedAccountFrom);
                 accountRepository.updateAccount(updatedAccountTo);
+            } else {
+                throw new IllegalArgumentException("Insufficient balance from sender");
             }
         }
     }

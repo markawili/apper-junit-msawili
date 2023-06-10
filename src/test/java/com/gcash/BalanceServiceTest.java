@@ -71,4 +71,15 @@ class BalanceServiceTest {
                 () -> Assertions.assertEquals(recipientAccount.balance(), 150.0)
         );
     }
+
+    @Test
+    void transfer_InsufficientBalance() {
+        //Setup
+        String senderAccountId = accountRepository.createAccount("Mark", 100.0);
+        String recipientAccountId = accountRepository.createAccount("Andrew", 100.0);
+        //Kick and Verify
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> balanceService.transfer(senderAccountId, recipientAccountId, 101.0)
+        );
+    }
 }
